@@ -2,8 +2,9 @@
 Auto Register Taki.app
 Run at google colab
 Tutorial:
-Open https://colab.research.google.com/
-Paste all from run file
-Fill Password On:
+
+1. Open https://colab.research.google.com/
+2. Paste all from run file
+3. Fill Password On:
 Password = 'YourPassword'
-run with click play button
+4. run with click play button
