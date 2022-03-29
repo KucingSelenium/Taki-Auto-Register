@@ -1,0 +1,66 @@
+!pip install selenium
+!apt-get update # to update ubuntu to correctly run apt install
+!apt install chromium-chromedriver
+!pip install chromedriver
+from tkinter import N
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from time import sleep
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait as wait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
+import os
+import random
+import time
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import Select
+from multiprocessing import Pool
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.common.exceptions import NoSuchElementException
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning) 
+cwd = os.getcwd()
+
+opts = webdriver.ChromeOptions()
+
+dc = DesiredCapabilities.CHROME
+opts.add_argument('--headless')
+opts.add_argument('--no-sandbox')
+opts.add_argument('--disable-dev-shm-usage')
+opts.add_argument('--ignore-ssl-errors=yes')
+opts.add_argument('--ignore-certificions')
+opts.add_argument("--start-maximized")
+
+password = 'YourPassword'
+i = 1
+while i < 10000: 
+    def open_browser(k):
+        global browser
+    browser = webdriver.Chrome(options=opts, desired_capabilities=dc)
+    browser.get('http://www.fakemailgenerator.com/')
+    time.sleep(3)
+    email = wait(browser,15).until(EC.presence_of_element_located((By.CSS_SELECTOR,"#cxtEmail"))).text
+    time.sleep(1)
+    browser.execute_script("window.open("");")
+    browser.switch_to.window(browser.window_handles[1])
+    time.sleep(2)
+    browser.get('https://taki.app/alpha/waitlist/')
+    element = wait(browser,15).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[1]/div[2]/div/div[2]/div/div[1]/div/input")))
+    element.send_keys(email)
+    element = wait(browser,15).until(EC.presence_of_element_located((By.XPATH,"/html/body/div[1]/div[2]/div/div[2]/div/button"))).click()
+    time.sleep(6)
+    browser.switch_to.window(browser.window_handles[0])
+    browser.refresh()
+    time.sleep(3)
+    browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    try:
+        browser.switch_to.frame(browser.find_element_by_id("emailFrame"))
+        element = wait(browser,15).until(EC.presence_of_element_located((By.XPATH,"/html/body/center/div/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr/td/table[5]/tbody/tr/td/center/a"))).click()
+        browser.switch_to_default_content()
+        print(email)
+    except:
+      pass
+    print(email)
+    time.sleep(5)
+    browser.quit()
