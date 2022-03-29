@@ -32,7 +32,7 @@ opts.add_argument('--ignore-ssl-errors=yes')
 opts.add_argument('--ignore-certificions')
 opts.add_argument("--start-maximized")
 
-password = 'Kucinglari11'
+password = 'YourPassword'
 i = 1
 while i < 10000: 
     def open_browser(k):
